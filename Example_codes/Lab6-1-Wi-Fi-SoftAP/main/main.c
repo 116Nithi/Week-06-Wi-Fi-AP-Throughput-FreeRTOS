@@ -14,7 +14,10 @@
 
 static const char *TAG = "LAB_SOFTAP";
 
-#define EXAMPLE_ESP_WIFI_SSID      "MY_ESP32_AP"
+// กำลังส่งสำหรับตาราง Lab 6.2 (หน่วย 0.25 dBm): 80=20dBm, 60=15dBm, 40=10dBm, 20=5dBm, 8=2dBm
+// ต้องตั้งค่าเท่ากันทั้ง Lab6-1 (AP) และ Lab6-2 (Client)
+#define TX_POWER_QUARTER_DBM       80
+#define EXAMPLE_ESP_WIFI_SSID      "ESP32_AP_0116"
 #define EXAMPLE_ESP_WIFI_PASS      "12345678"
 #define EXAMPLE_MAX_STA_CONN       4
 #define SERVER_PORT                8080
@@ -178,6 +181,8 @@ void app_main(void) {
 
     ESP_LOGI(TAG, "[FORENSIC]: Call esp_wifi_start()");
     ESP_ERROR_CHECK(esp_wifi_start());
+    ESP_ERROR_CHECK(esp_wifi_set_max_tx_power(TX_POWER_QUARTER_DBM));
+    ESP_LOGI(TAG, "[FORENSIC]: AP Tx Power limit = %.2f dBm", TX_POWER_QUARTER_DBM / 4.0);
 
     ESP_LOGI(TAG, "==================================================================");
     ESP_LOGI(TAG, "  ESP32 SoftAP Running! SSID: \"%s\", Channel: %d",

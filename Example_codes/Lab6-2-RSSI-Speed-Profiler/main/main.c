@@ -17,7 +17,10 @@
 
 static const char *TAG = "CLIENT_PROFILER";
 
-#define AP_SSID            "MY_ESP32_AP"
+// กำลังส่งสำหรับตาราง Lab 6.2 (หน่วย 0.25 dBm): 80=20dBm, 60=15dBm, 40=10dBm, 20=5dBm, 8=2dBm
+// ต้องตั้งค่าเท่ากันทั้ง Lab6-1 (AP) และ Lab6-2 (Client)
+#define TX_POWER_QUARTER_DBM       80
+#define AP_SSID            "ESP32_AP_0116"
 #define AP_PASS            "12345678"
 #define SERVER_IP          "192.168.4.1"
 #define SERVER_PORT        8080
@@ -208,6 +211,8 @@ static void wifi_init_sta(void)
 
     ESP_LOGI(TAG, "[FORENSIC]: Call esp_wifi_start()");
     ESP_ERROR_CHECK(esp_wifi_start());
+    ESP_ERROR_CHECK(esp_wifi_set_max_tx_power(TX_POWER_QUARTER_DBM));
+    ESP_LOGI(TAG, "[FORENSIC]: Client Tx Power limit = %.2f dBm", TX_POWER_QUARTER_DBM / 4.0);
 }
 
 void app_main(void)

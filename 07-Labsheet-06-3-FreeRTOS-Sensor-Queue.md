@@ -164,10 +164,12 @@ void app_main(void) {
 
 ### 6.1 บันทึกข้อมูล Forensic Stack High Water Mark
 
+> **หมายเหตุ:** ค่าในตารางนี้เป็นผลที่คาดการณ์จากโค้ดและใบงาน ยังไม่ได้วัดจากบอร์ดจริง
+
 | ชื่อ FreeRTOS Task | ขนาด Stack ที่กำหนดใน `xTaskCreate` (Bytes) | ค่า High Water Mark ที่อ่านได้ (Words / Bytes) | สถานะความปลอดภัยสแตก |
 | :--- | :---: | :---: | :---: |
-| **`SensorCollectorTask`** | 3072 | | |
-| **`NetworkCommTask`** | 4096 | | |
+| **`SensorCollectorTask`** | 3072 | 1,000 - 2,000 Bytes | ปลอดภัย |
+| **`NetworkCommTask`** | 4096 | 2,000 - 3,000 Bytes | ปลอดภัย |
 
 ---
 
